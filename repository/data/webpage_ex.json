@@ -1,0 +1,37 @@
+[
+	{
+	"webPageUrl": "https://www.netstor.com.tw",
+	"imgUrl": "../image/web_preview/web_ex01.jpg",
+	"title": "Template 02"
+	},
+	{
+	"webPageUrl": "../document/web_example/web_02/web_02.html",
+	"imgUrl": "../image/web_preview/web_ex02.jpg",
+	"title": "Template 02"
+	},
+{
+	"webPageUrl": "../document/web_example/web_03/web_03.html",
+	"imgUrl": "../image/web_preview/web_ex03.jpg",
+	"title": "Template 03"
+	},
+{
+	"webPageUrl": "../document/web_example/web_04/web_04.html",
+	"imgUrl": "../image/web_preview/web_ex04.jpg",
+	"title": "Template 04"
+	},
+{
+	"webPageUrl": "../document/web_example/web_05/web_05.html",
+	"imgUrl": "../image/web_preview/web_ex05.jpg",
+	"title": "Template 05"
+	},
+{
+	"webPageUrl": "../document/web_example/web_06/web_06.html",
+	"imgUrl": "../image/web_preview/web_ex06.jpg",
+	"title": "Template 06"
+	},
+{
+	"webPageUrl": "../document/web_example/web_07/web_07.html",
+	"imgUrl": "../image/web_preview/web_ex07.jpg",
+	"title": "Template 07"
+	}
+]

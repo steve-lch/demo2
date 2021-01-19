@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Example 05 - JSON</title>
+        <style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.stage {
+				width: 100%;
+				min-height: 100vh;
+				position: relative;
+				background-color: #112a2d;
+				box-sizing: border-box;
+				padding-top: 1px;
+			}
+			.spot_div {
+				width: 90%;
+				margin: 0 auto;
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.loading-area {
+				position: absolute;
+				z-index: 999;
+				background-color: rgba(0,0,0,0.7);
+				width: 100%;
+				height: 100vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				transition: all 0.4s ease 0.3s;
+			}
+			.disappear {
+				transition: all 0.4s ease 0.3s;
+				opacity: 0;
+				display: none;
+			}
+			.loading-icon {
+				position: absolute;
+				top: calc(50% - 25px);
+				left: calc(50% - 24px);
+			}
+			.icon-bar {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				display: inline-block;
+				width: 10px;
+				height: 25px;
+				background-color: #efefef;
+				border-radius: 5px;
+				animation-name: loadingAnimation;
+				animation-duration: 2s;
+				animation-iteration-count: infinite;
+				animation-fill-mode: forwards;
+				animation-delay: 0.2s;
+			}
+			.icon-bar:nth-child(2) {
+				left: 16px;
+				animation-delay: 0.4s;
+			}
+			.icon-bar:nth-child(3) {
+				left: 32px;
+				animation-delay: 0.6s;
+			}
+			.icon-bar:nth-child(4) {
+				left: 48px;
+				animation-delay: 0.8s;
+			}
+			.title {
+				color: #efefef;
+				width: 100%;
+				text-align: center;
+				margin: 30px 0 20px 0;
+				font-size: 48px;
+			}
+			#location {
+				width: 300px;
+				height: 30px;
+				border: 0;
+				background-color: #006f7c;
+				padding-left: 10px;
+				color: #efefef;
+			}
+			#checkBtn {
+				width: 100px;
+				height: 30px;
+				margin-left: 10px;
+			}
+			.op-area {
+				width: 100%;
+				height: 20px;
+				display: flex;
+				justify-content: center;
+			}
+			.spot_card {
+				width: 15%;
+				padding: 20px;
+				margin: 2%;
+				border-radius: 10px;
+				background: linear-gradient(#9ac69a, #fffff8);
+			}
+			.fac_county {
+				color: #998B47;
+				margin-bottom: 5px;
+			}
+			.fac_name {
+				color: #66926b;
+				margin-bottom: 5px;
+			}
+			.fac_address {
+				color: #777777;
+				margin-bottom: 10px;
+			}
+			.fac_web {
+				color: #a3a152;
+			}
+			@keyframes loadingAnimation {
+				0%, 25%, 100% { height: 25px; opacity: 0.7;}
+				12.5% { height:  50px; opacity: 1;}
+			}
+        </style>
+    </head>
+    <body>
+        <div class="stage">
+			<div class="loading-area">
+				<figure class="loading-icon">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</figure>
+			</div>
+			<h3 class="title">System</h3>
+			<div class="op-area">
+				<select id="location" name="location">
+					<option value="default">請選擇</option>
+					<option value="showall">顯示所有觀光工廠</option>
+				</select>
+				<button type="button" id="checkBtn">確認</button>
+			</div>
+			<div class="spot_div">
+				<!-- <div class="spot_card">
+					<h4 class="fac_county">宜蘭縣</h4>
+					<h3 class="fac_name">一米特創藝美食館</h3>
+					<p class="fac_address">宜蘭縣蘇澳鎮祥和路199號</p>
+					<p class="fac_web">www.onemit.com.tw</p>
+				</div> -->
+			</div>
+	  	</div>
+        <script>
+			const loading = document.querySelector('.loading-area'); //loading animation
+			const cors = 'https://cors-anywhere.herokuapp.com/'; // cors-anywhere plug-in
+			const requestURL = 'https://taiwanplace21.org.tw/Download_File.php?fileName=190902112139_M4.json'; // JSON url
+			const request = new XMLHttpRequest();
+			request.open('GET', cors + requestURL, true); // cors-anywhere should be added before the origin of JSON
+			request.send();
+			
+			request.onreadystatechange = function (){
+				if (this.readyState === 4 && this.status === 200){
+					loading.classList.add('disappear');
+					const cData = JSON.parse(request.response);
+					
+					// create showing Data option
+					const countyList = [];
+					cData.forEach(item => {if (countyList.indexOf(item.宜蘭縣) === -1){countyList.push(item.宜蘭縣)}});
+					
+					const opLocation = document.getElementById('location');
+					
+					function createList(optionItem){
+						const countyOption = document.createElement('option');
+						countyOption.value = optionItem;
+						countyOption.textContent = optionItem;
+						opLocation.appendChild(countyOption);
+					}
+					
+					countyList.forEach(item => {createList(item)});
+					
+					// create infoCards
+					const spotDiv = document.querySelector('.spot_div');
+					
+					function createInfoCard (jsonObj){
+						const card = document.createElement('div');
+						card.className = 'spot_card';
+
+						const county = document.createElement('h4');
+						county.textContent = jsonObj["宜蘭縣"];
+						county.className = 'fac_county';
+
+						const factoryName = document.createElement('h3');
+						factoryName.textContent = jsonObj["一米特創藝美食館"];
+						factoryName.className = 'fac_name';
+
+						const address = document.createElement('p');
+						address.textContent = jsonObj["宜蘭縣蘇澳鎮祥和路199號"];
+						address.className = 'fac_address';
+
+						const website = document.createElement('a');
+						website.textContent = jsonObj["www.onemit.com.tw/"];
+						website.href = 'http://' + jsonObj["www.onemit.com.tw/"];
+						website.target = '_blank';
+						website.className = 'fac_web';
+
+						const fragment = document.createDocumentFragment();
+
+						card.appendChild(county);
+						card.appendChild(factoryName);
+						card.appendChild(address);
+						card.appendChild(website);
+						fragment.appendChild(card);
+						spotDiv.appendChild(fragment);
+					}
+					
+					// button event
+					const checkBtn = document.getElementById('checkBtn');
+					
+					function showSpotInfo(){
+						spotDiv.innerHTML = '';
+						const crtOption = opLocation.options[opLocation.selectedIndex].text;
+						
+						if (crtOption === '顯示所有觀光工廠'){
+							cData.forEach(item => {createInfoCard(item)});
+						}
+						else {
+							const selectedArr = cData.filter(item => item.宜蘭縣 === crtOption);
+							selectedArr.forEach(item => {createInfoCard(item)});
+						}
+					}
+					
+					checkBtn.addEventListener('click', showSpotInfo);
+				}
+			}
+			
+        </script>
+    </body>
+</html>

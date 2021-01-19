@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Example 07 - mini game - 猜數字</title>
+        <style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.stage {
+				width: 100%;
+				min-height: 100vh;
+				background-color: #112a2d;
+				box-sizing: border-box;
+				padding-top: 1px;
+				text-align: center;
+				position: relative;
+			}
+			.preparation {
+				position: absolute;
+				width: 100%;
+				min-height: 100vh;
+				background: rgba(0,0,0,0.7);
+				top: 0;
+				transition: 0.5s;
+				opacity: 1;
+				overflow: hidden;
+			}
+			.dialogue_box {
+				width: 400px;
+				height: 400px;
+				padding: 30px;
+				border-radius: 10px;
+				background: #efefef;
+				top: calc(50% - 200px);
+				left: calc(50% - 200px);
+				position: absolute;
+				z-index: 9;
+				box-shadow: 0 0 15px rgba(255,255,255,0.6);
+				display: flex;
+				flex-wrap: wrap;
+				align-content: center;
+			}
+			.finish_glow {
+				animation-name: Glowing;
+				animation-duration: 3s;
+				animation-iteration-count: infinite;
+				animation-fill-mode: forwards;
+			}
+			.title {
+				color: #efefef;
+				width: 100%;
+				text-align: center;
+				margin: 30px 0 20px 0;
+				font-size: 48px;
+			}
+			.game_title {
+				font-size: 24px;
+				color: #ad945d;
+				margin-bottom: 10px;
+				width: 100%;
+			}
+			.key{
+				width: 100%;
+			}
+			.key_title {
+				font-size: 24px;
+				color: #5f3232;
+				margin-bottom: 30px;
+			}
+			.key_num {
+				display: inline-block;
+				background-color: #5f3232;
+				padding: 1px 7px;
+				color: #eee;
+			}
+			.guide_txt {
+				color: #777;
+				width: 100%;
+				margin-bottom: 20px;
+			}
+			.hint-title {
+				color: #efefef;
+				font-size: 18px;
+			}
+			label {
+				color: #efefef;
+			}
+			label::before {
+				content: '';
+				display: block;
+				clear: both;
+				margin-bottom: 10px;
+			}
+			#numberRange {
+				width: 100%;
+				height: 28px;
+				display: block;
+				margin: 0 100px 0 100px;
+				box-sizing: border-box;
+				padding: 3px;
+				text-align: center;
+			}
+			#guessNum {
+				width: 120px;
+				height: 20px;
+			}
+			.start_btn {
+				width: 80px;
+				height: 30px;
+				margin: 15px auto 0 auto;
+			}
+			.start_btn::before {
+				display: block;
+				content: '';
+				width: 100%;
+				height: 1px;
+			}
+			.submit_btn {
+				width: 80px;
+				height: 24px;
+				margin-top: 15px;
+			}
+			@keyframes Glowing {
+				0% {box-shadow: 0 0 35px rgba(255,255,255,0.6);}
+				25% {box-shadow: 0 0 35px rgba(30,201,212,0.6);}
+				50% {box-shadow: 0 0 35px rgba(241,239,47,0.6);}
+				75% {box-shadow: 0 0 35px rgba(229,30,91,0.6);}
+				100% {box-shadow: 0 0 35px rgba(255,255,255,0.6);}
+			}
+        </style>
+    </head>
+    <body>
+        <div class="stage">
+			<div class="preparation">
+				<div class="dialogue_box">
+					<h4 class="game_title">Title</h4>
+					<div class="key"></div>
+					<p class="guide_txt">some rules or guide......</p>
+					<input type="text" id="numberRange" name="numberRange">
+					<button type="button" class="start_btn">start</button>
+				</div>
+			</div>
+			<h3 class="title">System</h3>
+			<h4 class="hint-title">the number is from <span class="lower_limit">0</span> to <span class="higher_limit"></span>.</h4>
+			<label for="guess_number">Please enter: </label>
+			<input type="text" id="guessNum" name="guessNum">
+			<button type="button" class="submit_btn">送出</button>
+	  	</div>
+        <script>
+			// create a random number
+			const startBtn = document.querySelector('.start_btn');
+			const prepareScreen = document.querySelector('.preparation');
+			const dialogueBox = document.querySelector('.dialogue_box');
+			const gameTitle = document.querySelector('.game_title');
+			const guideTxt = document.querySelector('.guide_txt');
+			
+			function generateSecretNumber(){
+				const numRangeInput = document.getElementById('numberRange');
+				const numRange = Number(numRangeInput.value);
+				if (isNaN(numRange)) {
+					alert('請輸入正確的數字!!');
+					numRangeInput.value = '';
+					return;
+				}
+				else if ( numRange <= 0 || numRange%1 !== 0) {
+					alert('範圍必須大於0或是正整數');
+					numRangeInput.value = '';
+					return;
+				}
+				else {
+					const secretNum = Math.floor(Math.random() * numRange + 1);
+					prepareScreen.style.opacity = '0';
+					setTimeout(() => {prepareScreen.style.display = 'none';}, 500);
+					
+					//guessing the number
+					const lowerSpan = document.querySelector('.lower_limit');
+					const higherSpan = document.querySelector('.higher_limit');
+					higherSpan.textContent = numRange + 1;
+					
+					const submitBtn = document.querySelector('.submit_btn');
+					
+					function checkInputNum(){
+						const lowerNum = Number(lowerSpan.textContent);
+						const higherNum = Number(higherSpan.textContent);
+						const guessInput = document.getElementById('guessNum');
+						const guessNum = Number(guessInput.value);
+
+						if ( isNaN(guessNum) || guessNum < lowerNum || guessNum > higherNum ) {
+							alert('請輸入介於 ' + lowerSpan.textContent + ' 到 ' + higherSpan.textContent + ' 之間的數字!!');
+							guessInput.value = '';
+							return;
+						}
+
+						if ( guessNum > secretNum ) {
+							higherSpan.textContent = guessNum;
+							return;
+						}
+						else if ( guessNum < secretNum ) {
+							lowerSpan.textContent = guessNum;
+							return;
+						}
+						else {
+							const keyArea = document.querySelector('.key');
+							keyArea.innerHTML = '<h4 class="key_title">The Secret Number is <span class="key_num">' + secretNum + '</span> !!</h4>';
+							dialogueBox.classList.add('finish_glow');
+							prepareScreen.style.display = 'block';
+							prepareScreen.style.opacity = '1';
+							gameTitle.textContent = 'Congratulation!!';
+							guideTxt.textContent = 'Wanna try again?';
+							numRangeInput.style.display = 'none';
+							startBtn.textContent = 'Try again';
+							startBtn.addEventListener('click', () => window.location.reload());
+						}
+					}
+					submitBtn.addEventListener('click', checkInputNum);
+				}
+			}
+			
+			startBtn.addEventListener('click', generateSecretNumber);
+        </script>
+    </body>
+</html>

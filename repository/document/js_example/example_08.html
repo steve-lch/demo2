@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Example 08 - tabs</title>
+        <style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.stage {
+				width: 100%;
+				min-height: 100vh;
+				background-color: #112a2d;
+				box-sizing: border-box;
+				padding-top: 1px;
+				text-align: center;
+				position: relative;
+			}
+			.tab_container {
+				width: 600px;
+				min-height: 500px;
+				margin: 0 auto;
+			}
+			.tab_list {
+				display: flex;
+				justify-content: flex-start;
+				flex-wrap: nowrap;
+				padding: 10px 0;
+				border-bottom: 1px solid #194159;
+			}
+			.tab_item {
+				list-style: none;
+				color: #777;
+				cursor: pointer;
+				width: 100px;
+				position: relative;
+				transition: 0.3s;
+			}
+			.tab_item::before {
+				content: '';
+				position: absolute;
+				background-color: antiquewhite;
+				width: 0%;
+				height: 3px;
+				left: 0;
+				bottom: -12px;
+				transform: translateX(-50%);
+				transition: 0.3s;
+			}
+			.tab_item.active {
+				color: #eef;
+			}
+			.tab_item.active::before {
+				width: 100%;
+				transform: translateX(0%);
+			}
+			.contain_set {
+				width: 100%;
+				min-height: 700px;
+				position: relative;
+			}
+			.tab_content {
+				font-size: 1.5em;
+				color: #f1ef2f;
+				position: absolute;
+				padding: 10px;
+				opacity: 0;
+				transition: 0.3s;
+				z-index: 1;
+			}
+			.current {
+				opacity: 1;
+				z-index: 2;
+			}
+        </style>
+    </head>
+    <body>
+        <div class="stage">
+			<div class="tab_container">
+				<ul class="tab_list">
+					<li class="tab_item active">option 01</li>
+					<li class="tab_item">option 02</li>
+					<li class="tab_item">option 03</li>
+					<li class="tab_item">option 04</li>
+					<li class="tab_item">option 05</li>
+				</ul>
+				<div class="contain_set">
+					<div class="tab_content current">Content 01</div>
+					<div class="tab_content">Content 02</div>
+					<div class="tab_content">Content 03</div>
+					<div class="tab_content">Content 04</div>
+					<div class="tab_content">Content 05</div>
+				</div>
+			</div>
+	  	</div>
+        <script>
+			let tabBtn = Array.from(document.querySelectorAll('.tab_item'));
+			let tabContent = Array.from(document.querySelectorAll('.tab_content'));
+
+			tabBtn.forEach(item => item.addEventListener('click', callIndex))
+
+			function callIndex(){
+				if (this.classList.contains('active')) return;
+				else {
+					tabBtn.forEach(item => item.classList.remove('active'));
+					tabContent.forEach(item => item.classList.remove('current'));
+					this.classList.add('active');
+					tabContent[tabBtn.indexOf(this)].classList.add('current');
+				}
+			}
+        </script>
+    </body>
+</html>

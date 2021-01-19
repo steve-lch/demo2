@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Example 06 - closure應用 - 儲值卡</title>
+        <style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.stage {
+				width: 100%;
+				min-height: 100vh;
+				position: relative;
+				background-color: #112a2d;
+				box-sizing: border-box;
+				padding-top: 1px;
+				text-align: center;
+			}
+			.title {
+				color: #efefef;
+				width: 100%;
+				text-align: center;
+				margin: 30px 0 20px 0;
+				font-size: 48px;
+			}
+			.cash_title {
+				color: #efefef;
+				font-size: 18px;
+			}
+			label {
+				color: #efefef;
+			}
+			label::before {
+				content: '';
+				display: block;
+				clear: both;
+				margin-bottom: 10px;
+			}
+			input {
+				width: 120px;
+				height: 30px;
+			}
+			.submit_btn {
+				width: 80px;
+				height: 30px;
+				margin-top: 15px;
+			}
+        </style>
+    </head>
+    <body>
+        <div class="stage">
+			<h3 class="title">System</h3>
+			<h4 class="cash_title">餘額共有<span class="cash_number">0</span>元</h4>
+			<label for="addcash">加值: </label>
+			<input type="text" id="addCash" name="addCash">
+			<br>
+			<label for="spendcash">支出: </label>
+			<input type="text" id="spendCash" name="spendCash">
+			<br>
+			<button type="button" class="submit_btn">送出</button>
+	  	</div>
+        <script>
+			function cashSystem(){
+				let totalMoney = document.querySelector('.cash_number');
+				let mountingNum = Number(document.querySelector('.cash_number').textContent);
+				
+				return function calcMoney(n){
+					mountingNum += n ;
+					totalMoney.textContent = mountingNum;
+					return (mountingNum < 0 ? totalMoney.style.color = '#e51e5b' : totalMoney.style.color = '#efefef');
+				}
+			}
+			
+			const ac = document.getElementById('addCash');
+			const sc = document.getElementById('spendCash');
+			const submitBtn = document.querySelector('.submit_btn');
+			
+			function caculateAdd(){
+				const addValue = Number(ac.value);
+				const spendValue = Math.abs(Number(sc.value));
+				
+				if (isNaN(addValue) || isNaN(spendValue)) {
+					alert('請輸入數字!!');
+					ac.value = '';
+					sc.value = '';
+					return;
+				}
+				else if (addValue < 0) {
+					alert('加值金額必須大於0!!');
+					return;
+				}
+				else {
+					cashSystem()(addValue - spendValue);
+					ac.value = '';
+					sc.value = '';
+				}
+			}
+			
+			submitBtn.addEventListener('click', caculateAdd);
+        </script>
+    </body>
+</html>

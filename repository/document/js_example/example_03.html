@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Example 03 - Animation Control</title>
+        <style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.stage {
+				background-color: #112a2d;
+				width: 800px;
+				height: 400px;
+				box-sizing: border-box;
+				position: relative;
+			}
+			.mysquare {
+				border-radius: 10%;
+				width: 50px;
+				height: 50px;
+				position: absolute;
+				top: 2%;
+			}
+			.play_btn {
+				position: absolute;
+				top: calc(50% - 30px);
+				left: calc(50% - 30px);
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background: rgba(255,255,255, 0.6);
+				border: 0;
+				box-shadow: 0 0 30px;
+				cursor: pointer;
+			}
+			.stage.animated .mysquare {
+				animation-name: fallAndRotate;
+				animation-duration: 3s;
+				animation-iteration-count: 1;
+				animation-fill-mode: forwards;
+			}
+			.sq_style_gr {
+				background-color: #aad037;
+				left: 10%;
+				animation-delay: 0.3s;
+			}
+			.sq_style_ylw {
+				background-color: #f1ef2f;
+				left: 24.4%;
+				animation-delay: 0.6s;
+			}
+			.sq_style_bl {
+				background-color: #1ec9d4;
+				left: 38.8%;
+				animation-delay: 0.9s;
+			}
+			.sq_style_rd {
+				background-color: #e51e5b;
+				left: 53.2%;
+				animation-delay: 1.2s;
+			}
+			.sq_style_prp {
+				background-color: #722ea2;
+				left: 67.6%;
+				animation-delay: 1.5s;
+			}
+			.sq_style_brn {
+				background-color: #a25a2e;
+				left: 82%;
+				animation-delay: 1.8s;
+			}
+			@keyframes fallAndRotate{
+				0% {top:2%; transform:rotateZ(0deg);}
+				100% {top:82%; transform: rotateZ(360deg);}
+			}
+        </style>
+    </head>
+    <body>
+        <div class="stage">
+			<figure class="mysquare sq_style_gr"></figure>
+			<figure class="mysquare sq_style_ylw"></figure>
+			<figure class="mysquare sq_style_bl"></figure>
+			<figure class="mysquare sq_style_rd"></figure>
+			<figure class="mysquare sq_style_prp"></figure>
+			<figure class="mysquare sq_style_brn"></figure>
+			<button class="play_btn">Play</button>
+        </div>
+        <script>
+			var playBtn = document.querySelector('.play_btn');
+			var aniStage = document.querySelector('.stage');
+			var lastSquare = document.querySelectorAll('.mysquare')[5];
+			
+			// Animation Play Function
+			function AnimateStart(){
+				playBtn.style.display = 'none';
+				aniStage.classList.remove('animated');
+				void aniStage.offsetWidth;
+				aniStage.classList.add('animated');
+			}
+			
+			// Play | Replay Button Hide and Show
+			function btnCtrl(){
+				playBtn.textContent = 'Replay';
+				playBtn.style.display = 'block';
+			}
+			
+			playBtn.addEventListener('click', AnimateStart);
+            lastSquare.addEventListener('animationend', btnCtrl);
+			
+        </script>
+    </body>
+</html>

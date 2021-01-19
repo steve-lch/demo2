@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Example 01 - lottery generator</title>
+        <style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.stage {
+				background-color: #112a2d;
+				box-sizing: border-box;
+				position: relative;
+				min-height: 100vh;
+				padding-top: 100px;
+			}
+			.title {
+				color: #efefef;
+				width: 100%;
+				text-align: center;
+				margin: 30px 0 20px 0;
+				font-size: 48px;
+			}
+			.lottery_list {
+				margin: 0 auto;
+				width: 800px;
+				height: 470px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.lottery_list li {
+				list-style: none;
+				color: #f1ef2f;
+				float: left;
+				text-align: center;
+				width: 100px;
+				height: 100px;
+				border-radius: 10px;
+				margin: 10px;
+				font-size: 20px;
+				line-height: 100px;
+				position: relative;
+				border: 1px solid #efefef;
+				box-shadow: 0 0 5px #fff;
+			}
+			.lottery_list li span {
+				display: block;
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				border-radius: 10px;
+				background: #fff;
+				box-shadow: 0 0 10px #fff;
+				top: 0 ;
+				z-index: 2;
+				animation-name: showPrize;
+				animation-duration: 1s;
+				animation-fill-mode: forwards;
+			}
+			#generate {
+				width: 100px;
+				height: 30px;
+				display: block;
+				margin: 0 auto;
+			}
+			@keyframes showPrize {
+				0% {opacity: 1; box-shadow: 0 0 10px #fff;}
+				50% {box-shadow: 0 0 100px #f1ef2f;}
+				100% {opacity: 0; box-shadow: 0 0 10px #fff;}
+			}
+        </style>
+    </head>
+    <body>
+        <div class="stage">
+			<h3 class="title">System</h3>
+            <ul class="lottery_list">
+            </ul>
+            <button type="button" id="generate">generate</button>
+        </div>
+        <script>
+            const geneBtn = document.getElementById("generate");
+            const lotteryList = document.querySelector("ul.lottery_list");
+            const lotteryArray = [];
+            
+			function getRandomNum(){
+				
+				geneBtn.style.display = 'none';
+				
+				for (let i = 0; i < 6; i++){
+					   
+					var n = Math.floor(Math.random() * 48 + 1);	//generate random number
+					
+					if ( lotteryArray.indexOf(n) === -1 ){	//check number repeat or not
+						lotteryArray.push(n);
+						var lotteryItem = document.createElement('li');
+						var lotteryItemCover = document.createElement('span')
+                        var lotteryNum = document.createTextNode(lotteryArray[i]);
+                        lotteryItem.appendChild(lotteryNum);
+						lotteryItem.appendChild(lotteryItemCover);
+                        lotteryList.appendChild(lotteryItem);
+						lotteryItemCover.style.animationDelay = 1 * i + 's';
+					}
+					else {
+						i--;
+					}
+				}
+            };
+            
+            geneBtn.addEventListener('click', getRandomNum);
+			
+			
+        </script>
+    </body>
+</html>

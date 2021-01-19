@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Example 04 - Animation Effect</title>
+        <style>
+			* {
+			padding: 0;
+			margin: 0;
+		}
+		.stage {
+			width: 100%;
+			min-height: 100vh;
+			background-color: #112a2d;
+			display: flex;
+			align-items: center;
+			box-sizing: border-box;
+		}
+		.album {
+			width: 690px;
+			padding-bottom: 1000px;
+			margin: 0 auto;
+			overflow: hidden;
+			position: relative;
+			background: url(effect_sample_01.jpg) no-repeat;
+			border: 5px solid #cecece;
+			box-shadow: 0 0 15px rgba(0,0,0,0.6);
+		}
+		.digital_effect {
+			display: block;
+			width: 1px;
+			height: 20px;
+			position: absolute;
+			animation-name: techShow;
+			animation-iteration-count: infinite;
+			animation-fill-mode: forwards;
+			opacity: 0;
+			background: #ffe;
+			z-index: 9;
+		}
+		@keyframes techShow {
+			0% { opacity: 0; transform: translateY(-200px);}
+			50% { opacity: 0.2; }
+			100% { opacity: 0; transform: translateY(480px);}
+		}
+        </style>
+    </head>
+    <body>
+        <div class="stage">
+			<div class="album"></div>
+	  	</div>
+        <script>
+			const album = document.querySelector('.album');
+		
+			const effect = function createDigiEffect(){
+				for (let i = 0; i < 300; i++){
+					(function (){
+						const digiEffect = document.createElement('span');
+						const fragment = document.createDocumentFragment();
+						
+						digiEffect.className = 'digital_effect';
+						digiEffect.style.top = Math.floor(Math.random() * album.clientHeight + 1) + 'px';
+						digiEffect.style.left = Math.floor(Math.random() * album.clientWidth + 1) + 'px';
+						digiEffect.style.height = Math.floor(Math.random() * 150 + 1) + 'px';
+						digiEffect.style.animationDelay = Math.random() * 10 + 0.3 + 's';
+						digiEffect.style.animationDuration = Math.random() * 1 + 0.3 + 's';
+						
+						fragment.appendChild(digiEffect);
+						album.appendChild(fragment);
+					})();
+				}
+			}
+		
+			effect();
+			
+        </script>
+    </body>
+</html>
