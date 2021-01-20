@@ -6,7 +6,7 @@ axios.all([getMenu(), getPage()])
 .catch(err => {console.log(err)});
 
 function getMenu() {
-    return axios.get('http://127.0.0.1:5501/components/navi_bar.html')
+    return axios.get('https://steve-lch.github.io/demo2/repository/components/navi_bar.html')
     .then((response)=> {
         let menuDiv = document.querySelector('.menu');
         menuDiv.innerHTML = response.data;
@@ -58,9 +58,9 @@ function showSMenu(){
 //get and render page data
 function getPage(){
     let pageCnt = document.querySelector('.content');
-    const designUrl = 'http://127.0.0.1:5501/data/design.json';
-    const jsExUrl = 'http://127.0.0.1:5501/data/jspt_ex.json';
-    const webExUrl = 'http://127.0.0.1:5501/data/webpage_ex.json';
+    const designUrl = 'https://steve-lch.github.io/demo2/repository/data/design.json';
+    const jsExUrl = 'https://steve-lch.github.io/demo2/repository/data/jspt_ex.json';
+    const webExUrl = 'https://steve-lch.github.io/demo2/repository/data/webpage_ex.json';
     if (pageCnt.classList.contains('design')) {
         return axios.get(designUrl)
         .then(res => {
@@ -71,7 +71,8 @@ function getPage(){
                                         <img src="${item.imgUrl}">
                                     </figure>
                                 </a>`
-            })
+            });
+            refreshFsLightbox();
             pageCnt.innerHTML = contentHtml;
         })
     }
