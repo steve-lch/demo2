@@ -1,3 +1,4 @@
+
 axios.all([getMenu(), getPage()])
 .then(axios.spread((data1, data2) => {
     loadingAnimation.style.display = 'none';
@@ -5,7 +6,7 @@ axios.all([getMenu(), getPage()])
 .catch(err => {console.log(err)});
 
 function getMenu() {
-    return axios.get('../components/navi_bar.html')
+    return axios.get('http://127.0.0.1:5501/components/navi_bar.html')
     .then((response)=> {
         let menuDiv = document.querySelector('.menu');
         menuDiv.innerHTML = response.data;
@@ -57,9 +58,9 @@ function showSMenu(){
 //get and render page data
 function getPage(){
     let pageCnt = document.querySelector('.content');
-    const designUrl = '../data/design.json';
-    const jsExUrl = '../data/jspt_ex.json';
-    const webExUrl = '../data/webpage_ex.json';
+    const designUrl = 'http://127.0.0.1:5501/data/design.json';
+    const jsExUrl = 'http://127.0.0.1:5501/data/jspt_ex.json';
+    const webExUrl = 'http://127.0.0.1:5501/data/webpage_ex.json';
     if (pageCnt.classList.contains('design')) {
         return axios.get(designUrl)
         .then(res => {

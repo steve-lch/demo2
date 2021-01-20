@@ -1,38 +1,38 @@
 [
 	{
-	"url": "../document/js_example/example_01.html",
+	"url": "document/js_example/example_01.html",
 	"title": "lottery"
 	},
 	{
-	"url": "../document/js_example/example_02.html",
+	"url": "document/js_example/example_02.html",
 	"title": "add/remove DOM"
 	},
 	{
-	"url": "../document/js_example/example_03.html",
+	"url": "document/js_example/example_03.html",
 	"title": "Animation Control"
 	},
 	{
-	"url": "../document/js_example/example_04.html",
+	"url": "document/js_example/example_04.html",
 	"title": "Raining"
 	},
 	{
-	"url": "../document/js_example/example_05.html",
+	"url": "document/js_example/example_05.html",
 	"title": "觀光工廠一覽"
 	},
 	{
-	"url": "../document/js_example/example_06.html",
+	"url": "document/js_example/example_06.html",
 	"title": "儲值卡"
 	},
 	{
-	"url": "../document/js_example/example_07.html",
+	"url": "document/js_example/example_07.html",
 	"title": "猜數字"
 	},
 	{
-	"url": "../document/js_example/example_08.html",
+	"url": "document/js_example/example_08.html",
 	"title": "Tabs"
 	},
 	{
-	"url": "../document/js_example/example_09.html",
+	"url": "document/js_example/example_09.html",
 	"title": "example-09"
 	}
 ]
