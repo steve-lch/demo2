@@ -71,9 +71,9 @@ function getPage(){
                                         <img src="${item.imgUrl}">
                                     </figure>
                                 </a>`
-            });
-            refreshFsLightbox();
+            })
             pageCnt.innerHTML = contentHtml;
+            refreshFsLightbox();
         })
     }
     else if (pageCnt.classList.contains('jsex')) {
