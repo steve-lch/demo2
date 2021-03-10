@@ -991,7 +991,8 @@ body {
         overflow: hidden;
     }
     .slider-item img {
-        width: 150%;
+        width: auto;
+        height: 800px;
     }
     .slider-intro {
         width: 70%;
@@ -1034,6 +1035,10 @@ body {
         --hl-4: 18px;
         --hl-5: 18px;
     }
+    .slider-item img {
+        width: auto;
+        height: 600px;
+    }
     .tour-series-frame {
         padding-bottom: 400%;
     }
@@ -1075,7 +1080,8 @@ body {
         padding-bottom: 135%;
     }
     .slider-item img {
-        width: 280%;
+        width: auto;
+        height: 1000px;
     }
     .slider-intro {
         top: 34%;
@@ -1098,7 +1104,8 @@ body {
         padding-bottom: 150%;
     }
     .slider-item img {
-        width: 330%;
+        width: auto;
+        height: 900px;
     }
     .slider-intro {
         top: 14%;
@@ -1128,7 +1135,8 @@ body {
         padding-bottom: 180%;
     }
     .slider-item img {
-        width: 380%;
+        width: auto;
+        height: 800px;
     }
     .story-item {
         height: 100px;
