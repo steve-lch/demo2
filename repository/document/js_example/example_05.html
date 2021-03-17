@@ -155,9 +155,9 @@
         <script>
 			const loading = document.querySelector('.loading-area'); //loading animation
 			const cors = 'https://cors-anywhere.herokuapp.com/'; // cors-anywhere plug-in
-			const requestURL = 'https://taiwanplace21.org.tw/Download_File.php?fileName=190902112139_M4.json'; // JSON url
+			const requestURL = '190902112139_M4.json'; // JSON url
 			const request = new XMLHttpRequest();
-			request.open('GET', cors + requestURL, true); // cors-anywhere should be added before the origin of JSON
+			request.open('GET', requestURL, true); // cors-anywhere should be added before the origin of JSON
 			request.send();
 			
 			request.onreadystatechange = function (){

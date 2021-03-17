@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Example 11 - Scroll Animation</title>
+        <style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.stage {
+				width: 100%;
+				height: 100vh;
+				position: relative;
+				background-color: #112a2d;
+				padding-top: 1px;
+			}
+			.illust_01, .illust_02 {
+				width: 30%;
+				position: absolute;
+				top: 35%;
+				left: 20%;
+			}
+			.title {
+				margin: 0 0 20px 0;
+				font-size: 48px;
+			}
+			.parag {
+				font-size: 14px;
+				opacity: 0.4;
+			}
+			.light-txt {
+				color: #777;
+			}
+			.dark-txt {
+				color: #ccc;
+			}
+			.mySec {
+				width: 100%;
+				height: 100%;
+				background: #ffe;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				position: relative;
+				overflow: hidden;
+			}
+			.theme {
+				width: 100vw;
+				height: 100%;
+				color: #ffe;
+				font-size: 36px;
+				position: relative;
+			}
+			.stage_frame {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				position: absolute;
+			}
+			.color_01 {
+				background-color: #f4f4f4;
+			}
+			.color_02 {
+				background-color: #1a1a1a;
+			}
+			.pic_frame {
+				width: 600px;
+				height: 500px;
+				position: absolute;
+				top: 50%;
+				left: 70%;
+				transform: translate(-50%, -50%);
+			}
+			.light {
+				background: url(js_resource/ex_11_light_img.png) no-repeat;
+				background-size: contain;
+			}
+			.dark {
+				background: url(js_resource/ex_11_dark_img.png) no-repeat;
+				background-size: contain;
+			}
+			.hint-ico {
+				display: block;
+				position: fixed;
+				width: 30px;
+				height: 30px;
+				bottom: 5%;
+				left: 50%;
+				color: #ff6c4a;
+			}
+			.hint-ico svg {
+				width: 100%;
+				height: 100%;
+				transform: scale(1);
+			}
+			.hint-ico::before {
+				content: 'scroll';
+				position: absolute;
+				top: -100%;
+				left: -15%;
+				animation: anima 1s ease-out 2s infinite;
+			}
+			@keyframes anima {
+				0% {top: -150%;}
+				70% {top: -100%;}
+				100 {top: -150%;}
+			}
+        </style>
+    </head>
+    <body>
+        <div class="stage">
+			<section class="mySec">
+				<figure class="theme color_01">
+					<div class="pic_frame light"></div>
+					<div class="illust_01">
+						<h3 class="title light-txt">Lorem ipsum dolor sit</h3>
+						<p class="parag light-txt">urna et pharetra pharetra massa massa ultricies. Aliquam sem fringilla ut morbi tincidunt augue interdum. Phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Leo in vitae turpis massa sed elementum tempus egestas.</p>
+					</div>
+				</figure>
+				<div class="stage_frame">
+					<figure class="theme color_02">
+						<div class="pic_frame dark"></div>
+						<div class="illust_02">
+							<h3 class="title dark-txt">Consectetur adipiscing elit</h3>
+							<p class="parag dark-txt">Nunc scelerisque viverra mauris in aliquam sem. Sit amet dictum sit amet justo donec enim diam. Velit egestas dui id ornare arcu odio. Vel orci porta non pulvinar neque laoreet.</p>
+						</div>
+					</figure>
+				</div>
+			</section>
+			<span class="hint-ico">
+				<svg height="512pt" viewBox="-105 0 512 512.00002" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m150.601562 0c-83.042968 0-150.601562 67.558594-150.601562 150.601562v210.796876c0 83.042968 67.558594 150.601562 150.601562 150.601562 83.042969 0 150.601563-67.558594 150.601563-150.601562v-210.796876c0-83.042968-67.558594-150.601562-150.601563-150.601562zm119.882813 361.398438c0 66.101562-53.78125 119.882812-119.882813 119.882812-66.101562 0-119.882812-53.78125-119.882812-119.882812v-210.796876c0-66.101562 53.78125-119.882812 119.882812-119.882812 66.101563 0 119.882813 53.78125 119.882813 119.882812zm0 0" fill="#ff6c4a"/><path d="m150.605469 101.851562c-8.484375 0-15.359375 6.875-15.359375 15.359376v70.695312c0 8.480469 6.875 15.359375 15.359375 15.359375 8.480469 0 15.359375-6.878906 15.359375-15.359375v-70.695312c0-8.484376-6.875-15.359376-15.359375-15.359376zm0 0" fill="#ff6c4a"/></svg>
+			</span>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollTrigger.min.js"></script>
+        <script>
+			let tl = gsap.timeline();
+			tl.from('.illust_01', {
+				y: '-100%',
+				opacity: '0'
+			})
+			.from('.stage_frame', {
+				width: '0%'
+			})
+			.from('.illust_02', {
+				x: '-100%',
+				opacity: '0'
+			})
+
+			ScrollTrigger.create({
+				animation: tl,
+				trigger: '.mySec',
+				start: 'top top',
+				end: '+=7000',
+				scrub: 1,
+				toggleActions: 'restart none none none',
+				pin: true,
+			})
+        </script>
+    </body>
+</html>

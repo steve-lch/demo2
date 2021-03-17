@@ -12,20 +12,21 @@
 		.stage {
 			width: 100%;
 			min-height: 100vh;
-			background-color: #112a2d;
+			background-color: #121212;
 			display: flex;
 			align-items: center;
 			box-sizing: border-box;
 		}
 		.album {
-			width: 690px;
-			padding-bottom: 1000px;
+			width: calc(100% - 20%);
 			margin: 0 auto;
 			overflow: hidden;
 			position: relative;
-			background: url(effect_sample_01.jpg) no-repeat;
-			border: 5px solid #cecece;
+			border: 5px solid #fcfcfc;
 			box-shadow: 0 0 15px rgba(0,0,0,0.6);
+		}
+		.eff_img {
+			width: 100%;
 		}
 		.digital_effect {
 			display: block;
@@ -42,13 +43,15 @@
 		@keyframes techShow {
 			0% { opacity: 0; transform: translateY(-200px);}
 			50% { opacity: 0.2; }
-			100% { opacity: 0; transform: translateY(480px);}
+			100% { opacity: 0; transform: translateY(580px);}
 		}
         </style>
     </head>
     <body>
         <div class="stage">
-			<div class="album"></div>
+			<div class="album">
+				<img class="eff_img" src="js_resource/effect_sample_01.jpg">
+			</div>
 	  	</div>
         <script>
 			const album = document.querySelector('.album');
@@ -63,6 +66,7 @@
 						digiEffect.style.top = Math.floor(Math.random() * album.clientHeight + 1) + 'px';
 						digiEffect.style.left = Math.floor(Math.random() * album.clientWidth + 1) + 'px';
 						digiEffect.style.height = Math.floor(Math.random() * 150 + 1) + 'px';
+						digiEffect.style.filter = 'blur(' + Math.random() * 2 + 'px)';
 						digiEffect.style.animationDelay = Math.random() * 10 + 0.3 + 's';
 						digiEffect.style.animationDuration = Math.random() * 1 + 0.3 + 's';
 						
