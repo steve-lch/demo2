@@ -1,5 +1,20 @@
 [
 	{
+		"webPageUrl": "https://www.isport.tw",
+		"imgUrl": "image/web_preview/web_ex08.png",
+		"title": "Template 02"
+	},
+	{
+		"webPageUrl": "https://www.lidalin.com.tw",
+		"imgUrl": "image/web_preview/web_ex09.png",
+		"title": "Template 02"
+	},
+	{
+		"webPageUrl": "https://www.kcandy.com.tw",
+		"imgUrl": "image/web_preview/web_ex10.png",
+		"title": "Template 02"
+	},
+	{
 	"webPageUrl": "https://www.netstor.com.tw",
 	"imgUrl": "image/web_preview/web_ex01.jpg",
 	"title": "Template 02"

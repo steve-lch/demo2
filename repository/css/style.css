@@ -268,7 +268,7 @@ body {
     display: block;
     position: absolute;
     width: 3px;
-    height: 600px;
+    height: 700px;
     background-color: rgb(224, 224, 224);
     left: 20px;
 }
@@ -341,6 +341,9 @@ body {
 }
 .resume06 {
     top: 480px;
+}
+.resume07 {
+    top: 600px;
 }
 .item-viewbox {
     position: relative;
