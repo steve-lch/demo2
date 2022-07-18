@@ -367,7 +367,9 @@ body {
     top: 0%;
     left: 0%;
     transform: translate(-10%, 0%);
-    width: 200%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: 0.3s;
 }
 .item-viewbox:hover .img-div {
@@ -401,7 +403,7 @@ body {
     background-color: rgba(255,255,255,0.8);
 }
 .item-viewbox:hover img {
-    width: 200%;
+    width: 110%;
 }
 .web-viewbox {
     position: relative;
