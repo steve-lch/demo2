@@ -420,8 +420,8 @@ body {
     transition: 1s;
 }
 .web-viewbox:nth-child(3) img {
-    width: auto;
-    height: 100%;
+    /* width: auto;
+    height: 100%; */
 }
 .web-viewbox:hover img {
     top: -10%;
